@@ -1,19 +1,29 @@
 {
-    "name": "web-scraping",
-    "version": "1.0.0",
-    "description": "Web scraping using cheerio, nodeJS, mongoDB",
-    "main": "server.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/radhika-sivarajan/Web_Scraping.git"
-    },
-    "author": "radhika-sivarajan",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/radhika-sivarajan/Web_Scraping/issues"
-    },
-    "homepage": "https://github.com/radhika-sivarajan/Web_Scraping#readme"
+  "name": "web-scraping",
+  "version": "1.0.0",
+  "description": "Web scraping using cheerio, nodeJS, mongoDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radhika-sivarajan/Web_Scraping.git"
+  },
+  "author": "radhika-sivarajan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radhika-sivarajan/Web_Scraping/issues"
+  },
+  "homepage": "https://github.com/radhika-sivarajan/Web_Scraping#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cheerio": "^0.22.0",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.10.0",
+    "morgan": "^1.8.1",
+    "request": "^2.81.0"
+  }
 }
