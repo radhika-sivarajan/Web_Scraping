@@ -14,17 +14,22 @@
 
 <body>
     <div class="container main-container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="main-text">O
+                    <span class="sub-text"> Science & Environment</span>
+                </p>
+            </div>
+        </div>
         <ul class="nav nav-tabs">
             <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
             <li><a href="/scrape"><span class="glyphicon glyphicon-refresh"></span> Scrape</a></li>
         </ul>
-        <div class="row">
-            <div class="col-md-12 text-center">     
-                <p class="main-text">O
-                <span class="sub-text"> Science & Environment</span>
-                </p>
+        <div class="tab-content article-section">
+            <div class="row">
+                <p class="text-center article-title"> Articles </p>
+                {{{ body }}}
             </div>
-            {{{ body }}}
         </div>
         <footer class="row text-center">
             <p> Copyright &copy; Radhika Sivarajan</p>

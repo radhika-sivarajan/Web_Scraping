@@ -36,6 +36,7 @@ router.get("/scrape", function(req, res) {
                             if (err) {
                                 res.send(err);
                             } else {
+                                console.log("New document added");
                                 res.redirect("/");
                             }
                         });
