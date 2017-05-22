@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
         if (error) {
             res.send(error);
         } else {
-            var articles = { data: doc }
+            var articles = { data: doc };
             res.render("scrape", articles);
         }
     });

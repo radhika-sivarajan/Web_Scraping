@@ -5,14 +5,12 @@
 
 body {
     background-image: url(../images/background.jpg);
-    background-size: 30%;
-    background-repeat: repeat;
 }
 
 .main-text {
     font-family: "BBCTV";
     font-size: 70px;
-    color: #090b56;
+    color: #127e9c;
 }
 
 .sub-text {
@@ -32,7 +30,7 @@ body {
     font-family: 'Days One', sans-serif;
     font-size: 15px;
     color: white;
-    background-color: #1d7b73;
+    background-color: #5a9286;
     margin-left: -1px;
     margin-right: -1px;
 }
