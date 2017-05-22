@@ -8,9 +8,9 @@ var Promise = require("bluebird");
 var PORT = process.env.PORT || 3000;
 var app = express();
 
-// Controllers
-var routes = require("./controllers/controller.js");
-app.use("/", routes);
+// Models
+var Comments = require("./models/Comments.js");
+var News = require("./models/News.js");
 
 // Static directory
 app.use(express.static("public"));
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Database configuration with mongoose, errors, success
 mongoose.Promise = Promise;
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV === 'production') {
     mongoose.connect('mongodb://heroku_309mccdx:rf05t6gjulsqo2gq5idmcbc4ng@ds149481.mlab.com:49481/heroku_309mccdx');
 } else {
     mongoose.connect('mongodb://localhost/web-scraper');
@@ -32,6 +32,10 @@ if (process.env.NODE_ENV == 'production') {
 var db = mongoose.connection;
 db.on("error", function(error) { console.log("Mongoose Error: ", error); });
 db.once("open", function() { console.log("Mongoose connection successful."); });
+
+// Controllers
+var routes = require("./controllers/controller.js");
+app.use("/", routes);
 
 app.listen(PORT, function() {
     console.log('Running on port: ' + PORT);
