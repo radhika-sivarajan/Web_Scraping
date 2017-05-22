@@ -8,8 +8,11 @@
                     <img class="img-thumbnail" src="{{this.image}}" alt="BBC image">
                 </div>
                 <div class="news-summary text-center">
-                    <p>{{this.summary}} </p>
-                    <i>Full article <a href="{{this.link}}" target="_new">here</a>.</i>
+                    <p class="news-snippet">{{this.summary}} </p>
+                    <i>Full news 
+                        <a href="{{this.link}}" target="_blank">Go to website</a> <br>OR 
+                        <a href="{{this.link}}" target="popup"  onclick="window.open('{{this.link}}','popup','width=600,height=600'); return false;">Open in a popup window</a>
+                    </i>
                 </div>
             </div>
         </li>

@@ -44,12 +44,25 @@ body {
     padding: 10px;
 }
 
+.collapsible-body .news-snippet {
+    padding: 1rem;
+}
+
 .article-section {
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding-left: 15px;
     padding-right: 15px;
+    background-image: url(../images/pattern.jpg);
+}
+
+.nav-tabs>li.active>a {
+    background-image: url(../images/pattern.jpg);
+}
+
+.collapsible-body {
+    background-color: white;
 }
 
 .article-title {

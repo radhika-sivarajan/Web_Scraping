@@ -46,8 +46,8 @@ router.get("/scrape", function(req, res) {
                 });
             }
         });
+        res.redirect("/");
     });
-    res.redirect("/");
 });
 
 router.post('/add/comment/:id', function(req, res) {
