@@ -1,0 +1,36 @@
+<div class="container fill main-container ">
+    <ul class="nav nav-tabs">
+        <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li class="active"><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+        <li><a href="/scrape"><span class="glyphicon glyphicon-refresh"></span> Scrape</a></li>
+    </ul>
+    <div class="tab-content user-section">
+        <div class="row">
+            <p class="text-center user-title"> User's list </p>
+            <div class="col-md-8 col-md-offset-2">
+                {{#if user}}
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Comment</th>
+                        <th>Article</th>
+                    </tr>
+                    {{#each user}}
+                    <tr>
+                        <td> {{this.username}} </td>
+                        <td> {{this.message}} </td>
+                        {{#each this.news}}
+                        <td>
+                            <a href="{{this.link}}" target="popup" onclick="window.open('{{this.link}}','popup','width=600,height=600'); return false;"> {{this.title}} </a>
+                        </td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </table>
+                {{else}}
+                <p class="text-center">No users yet !!!</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

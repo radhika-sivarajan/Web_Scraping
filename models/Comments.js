@@ -7,7 +7,11 @@ var CommentsSchema = new Schema({
     },
     message: {
         type: String
-    }
+    },
+    news: [{
+        type: Schema.Types.ObjectId,
+        ref: "News"
+    }]
 });
 
 var Comments = mongoose.model("Comments", CommentsSchema);
