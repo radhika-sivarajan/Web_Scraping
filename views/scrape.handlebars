@@ -2,19 +2,19 @@
 <div class="col-md-6">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header grey lighten-2 news-title"> {{this.title}} </div>
-            <div class="collapsible-body text-center">
+            <div class="collapsible-header news-title"> {{this.title}} </div>
+            <div class="collapsible-body news-body">
                 <div class="pull-left news-image">
-                    <img src="{{this.image}}" alt="BBC image">
+                    <img class="img-thumbnail" src="{{this.image}}" alt="BBC image">
                 </div>
-                <div class="news-summary">
+                <div class="news-summary text-center">
                     <p>{{this.summary}} </p>
                     <i>Full article <a href="{{this.link}}" target="_new">here</a>.</i>
                 </div>
             </div>
         </li>
         <li>
-            <div class="collapsible-header"><span class="glyphicon glyphicon-plus-sign"></span> Add comment</div>
+            <div class="collapsible-header news-comment"><span class="glyphicon glyphicon-plus-sign"></span> Add comment</div>
             <div class="collapsible-body">
                 <form id="form-add-{{this._id}}" action="add/comment/{{this._id}}" method="post">
                     <div class="row">
@@ -38,7 +38,7 @@
             </div>
         </li>
         <li>
-            <div class="collapsible-header"><span class="glyphicon glyphicon-eye-open"></span> Show comments</div>
+            <div class="collapsible-header news-comment"><span class="glyphicon glyphicon-eye-open"></span> Show comments</div>
             <div class="collapsible-body">
                 {{#if this.comments}}
                 <ul class="collection">
