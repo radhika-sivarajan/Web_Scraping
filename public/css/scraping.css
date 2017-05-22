@@ -1,0 +1,18 @@
+body {
+    background-image: url(../images/background.jpg);
+    background-size: 30%;
+    background-repeat: repeat;
+}
+
+.main-container {
+    background-color: white;
+}
+
+.delete-comment-button {
+    padding: 5px;
+    text-transform: capitalize;
+    background-color: red;
+    line-height: 1px;
+    height: 20px;
+    font-size: 10px;
+}

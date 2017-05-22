@@ -33,7 +33,11 @@ router.get("/scrape", function(req, res) {
                     if (count === 0) {
                         var document = new News(result);
                         document.save(function(err, doc) {
-                            if (err) { console.log(err); }
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                res.redirect("/");
+                            }
                         });
                     } else {
                         console.log("Document already exist");
@@ -41,6 +45,40 @@ router.get("/scrape", function(req, res) {
                 });
             }
         });
+    });
+    res.redirect("/");
+});
+
+router.post('/add/comment/:id', function(req, res) {
+    var articleId = req.params.id;
+    var result = {
+        username: req.body.userName,
+        message: req.body.userComment
+    };
+    var comment = new Comments(result);
+    comment.save(function(err, doc) {
+        if (err) {
+            res.send(error);
+        } else {
+            News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": doc._id } }, { new: true }, function(err, newComment) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.redirect("/");
+                }
+            });
+        }
+    });
+});
+
+router.post('/delete/comment/:id', function(req, res) {
+    var commentId = req.params.id;
+    Comments.findByIdAndRemove(commentId, function(err, todo) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.redirect("/");
+        }
     });
 });
 
