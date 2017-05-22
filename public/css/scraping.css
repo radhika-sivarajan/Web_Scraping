@@ -22,6 +22,11 @@ body {
     background-color: white;
 }
 
+.news-display {
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
 .news-body {
     height: 145px;
 }
@@ -31,8 +36,7 @@ body {
     font-size: 15px;
     color: white;
     background-color: #5a9286;
-    margin-left: -1px;
-    margin-right: -1px;
+    padding: 10px;
 }
 
 .news-comment {
@@ -61,12 +65,14 @@ body {
     background-image: url(../images/pattern.jpg);
 }
 
-.collapsible-body {
+.collapsible-body,
+.news-body {
     background-color: white;
 }
 
 .article-title {
     color: #2f5049;
+    padding: 15px;
     font-size: 30px;
     font-family: 'Days One', sans-serif;
     text-shadow: 0 1px 1px #ccc, 0 2px 0 #a0a0a0, 0 3px 0 #c5c2c2, 0 9px 7px #9a9794;

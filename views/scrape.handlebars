@@ -1,21 +1,21 @@
 {{#each data}}
 <div class="col-md-6">
-    <ul class="collapsible" data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header news-title"> {{this.title}} </div>
-            <div class="collapsible-body news-body">
-                <div class="pull-left news-image">
-                    <img class="img-thumbnail" src="{{this.image}}" alt="BBC image">
-                </div>
-                <div class="news-summary text-center">
-                    <p class="news-snippet">{{this.summary}} </p>
-                    <i>Full news 
-                        <a href="{{this.link}}" target="_blank">Go to website</a> <br>OR 
-                        <a href="{{this.link}}" target="popup"  onclick="window.open('{{this.link}}','popup','width=600,height=600'); return false;">Open in a popup window</a>
-                    </i>
-                </div>
+    <div class="news-display">
+        <div class="news-title"> {{this.title}} </div>
+        <div class="news-body">
+            <div class="pull-left news-image">
+                <img class="img-thumbnail" src="{{this.image}}" alt="BBC image">
             </div>
-        </li>
+            <div class="news-summary text-center">
+                <p class="news-snippet">{{this.summary}} </p>
+                <i>Full news 
+                    <a href="{{this.link}}" target="_blank">Go to website</a> <br>OR 
+                    <a href="{{this.link}}" target="popup"  onclick="window.open('{{this.link}}','popup','width=600,height=600'); return false;">Open in a popup window</a>
+                </i>
+            </div>
+        </div>
+    </div>
+    <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header news-comment"><span class="glyphicon glyphicon-plus-sign"></span> Add comment</div>
             <div class="collapsible-body">
