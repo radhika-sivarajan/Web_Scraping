@@ -6,14 +6,22 @@ var request = require('request');
 var cheerio = require('cheerio');
 var router = express.Router();
 
-var messages = "";
+var commentMessage = null;
 
 router.get("/", function(req, res) {
+    commentMessage = null;
+    res.redirect("/scrape");
+});
+
+router.get("/home", function(req, res) {
     News.find({}).populate("comments").exec(function(error, doc) {
         if (error) {
             res.send(error);
         } else {
-            var articles = { data: doc };
+            var articles = {
+                data: doc,
+                commentMessage: commentMessage
+            };
             res.render("scrape", articles);
         }
     });
@@ -40,7 +48,6 @@ router.get("/scrape", function(req, res) {
                                 res.send(err);
                             } else {
                                 console.log("New document added");
-                                res.redirect("/");
                             }
                         });
                     } else {
@@ -49,7 +56,7 @@ router.get("/scrape", function(req, res) {
                 });
             }
         });
-        res.redirect("/");
+        res.redirect("/home");
     });
 });
 
@@ -62,45 +69,31 @@ router.post('/add/comment/:id', function(req, res) {
     };
     var comment = new Comments(result);
     if (req.body.userName && req.body.userComment) {
-        Users.find({ username: req.body.userName }, function(err, doc) {
-            if (doc[0]) {
-                comment.save(function(err, docComment) {
+        comment.save(function(err, docComment) {
+            if (err) {
+                res.send(error);
+            } else {
+                News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newComment) {
                     if (err) {
-                        res.send(error);
+                        res.send(err);
                     } else {
-                        News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newComment) {
-                            if (err) {
-                                res.send(err);
-                            } else {
+                        Users.find({ username: req.body.userName }, function(err, doc) {
+                            if (doc[0]) {
                                 Users.findOneAndUpdate({ '_id': doc[0]._id }, { $push: { "comments": docComment._id } }, { new: true }, function(error, newUserComment) {
                                     if (error) { res.send(error); } else {
-                                        console.log(newUserComment);
                                         res.redirect("/");
                                     }
                                 });
-                            }
-                        });
-                    }
-                });
-            } else {
-                comment.save(function(err, docComment) {
-                    if (err) {
-                        res.send(error);
-                    } else {
-                        News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newComment) {
-                            if (err) {
-                                res.send(err);
                             } else {
-                                var newUser = { username: req.body.userName };
+                                var newUser = {
+                                    username: req.body.userName,
+                                    comments: [docComment._id]
+                                };
                                 var user = new Users(newUser);
                                 user.save(function(error, docUser) {
                                     if (error) { res.send(error); } else {
-                                        Users.findOneAndUpdate({ '_id': docUser._id }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newUserComment) {
-                                            if (error) { res.send(error); } else {
-                                                console.log(newUserComment);
-                                                res.redirect("/");
-                                            }
-                                        });
+                                        commentMessage = "*** Comment added ***";
+                                        res.redirect("/home");
                                     }
                                 });
                             }
@@ -121,13 +114,14 @@ router.post('/delete/comment/:id', function(req, res) {
         if (err) {
             res.send(err);
         } else {
-            res.redirect("/");
+            commentMessage = "*** Comment deleted ***";
+            res.redirect("/home");
         }
     });
 });
 
 router.get("/comments", function(req, res) {
-    Comments.find({}).populate("news").exec(function(error, doc) {
+    Comments.find({}).populate("news").sort({ username: 1 }).exec(function(error, doc) {
         if (error) {
             res.send(error);
         } else {

@@ -7,7 +7,7 @@
     <div class="tab-content article-section">
         <div class="row">
             <p class="text-center article-title"> News & Articles </p>
-            <span class="text-center comment-messages"> {{commentMessage}}</span><br>
+            <p class="text-center article-messages">{{message}}</p>
             {{#each data}}
             <div class="col-md-6">
                 <div class="news-display">
@@ -18,15 +18,15 @@
                         </div>
                         <div class="news-summary text-center">
                             {{#if this.summary}}
-                            <p class="news-snippet">{{this.summary}} </p>
-                            <hr> 
+                                <p class="news-snippet">{{this.summary}} </p>
+                                <hr> 
                             {{else}}
-                                <br><br> 
+                                <br> <br> 
                             {{/if}}
                             <i>Full news 
-                                <a href="{{this.link}}" target="_blank">Go to the website</a> <br>OR 
-                                <a href="{{this.link}}" target="popup"  onclick="window.open('{{this.link}}','popup','width=600,height=600'); return false;">Open in a popup window</a>
-                            </i>
+                    <a href="{{this.link}}" target="_blank">Go to the website</a> <br>OR 
+                    <a href="{{this.link}}" target="popup"  onclick="window.open('{{this.link}}','popup','width=600,height=600'); return false;">Open in a popup window</a>
+                </i>
                         </div>
                     </div>
                 </div>
@@ -37,13 +37,13 @@
                             <form id="form-add-{{this._id}}" action="add/comment/{{this._id}}" method="post">
                                 <div class="row">
                                     <div class="input-field col s8 offset-s2">
-                                        <input id="user-name" name="userName" type="text" class="validate" required>
+                                        <input id="user-name" name="userName" type="text" class="validate">
                                         <label for="user-name">Your Name:</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s8 offset-s2">
-                                        <textarea id="comment-box" name="userComment" class="materialize-textarea" required></textarea>
+                                        <textarea id="comment-box" name="userComment" class="materialize-textarea"></textarea>
                                         <label for="comment-box">Comment:</label>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                 {{/each}}
                             </ul>
                             {{else}}
-                            <p>No comments yet !!!</p>
+                                <p>No comments yet !!!</p>
                             {{/if}}
                         </div>
                     </li>
