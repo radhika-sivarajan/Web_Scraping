@@ -12,6 +12,7 @@ process.env.NODE_ENV = 'development';
 // Models
 var Comments = require("./models/Comments.js");
 var News = require("./models/News.js");
+var Users = require("./models/Users.js");
 
 // Static directory
 app.use(express.static("public"));

@@ -1,9 +1,12 @@
 var Comments = require("../models/Comments.js");
 var News = require("../models/News.js");
+var Users = require("../models/Users.js");
 var express = require("express");
 var request = require('request');
 var cheerio = require('cheerio');
 var router = express.Router();
+
+var messages = "";
 
 router.get("/", function(req, res) {
     News.find({}).populate("comments").exec(function(error, doc) {
@@ -52,22 +55,56 @@ router.get("/scrape", function(req, res) {
 
 router.post('/add/comment/:id', function(req, res) {
     var articleId = req.params.id;
+    var result = {
+        username: req.body.userName,
+        message: req.body.userComment,
+        news: req.params.id
+    };
+    var comment = new Comments(result);
     if (req.body.userName && req.body.userComment) {
-        var result = {
-            username: req.body.userName,
-            message: req.body.userComment,
-            news: req.params.id
-        };
-        var comment = new Comments(result);
-        comment.save(function(err, doc) {
-            if (err) {
-                res.send(error);
-            } else {
-                News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": doc._id } }, { new: true }, function(err, newComment) {
+        Users.find({ username: req.body.userName }, function(err, doc) {
+            if (doc[0]) {
+                comment.save(function(err, docComment) {
                     if (err) {
-                        res.send(err);
+                        res.send(error);
                     } else {
-                        res.redirect("/");
+                        News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newComment) {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                Users.findOneAndUpdate({ '_id': doc[0]._id }, { $push: { "comments": docComment._id } }, { new: true }, function(error, newUserComment) {
+                                    if (error) { res.send(error); } else {
+                                        console.log(newUserComment);
+                                        res.redirect("/");
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                comment.save(function(err, docComment) {
+                    if (err) {
+                        res.send(error);
+                    } else {
+                        News.findOneAndUpdate({ '_id': articleId }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newComment) {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                var newUser = { username: req.body.userName };
+                                var user = new Users(newUser);
+                                user.save(function(error, docUser) {
+                                    if (error) { res.send(error); } else {
+                                        Users.findOneAndUpdate({ '_id': docUser._id }, { $push: { "comments": docComment._id } }, { new: true }, function(err, newUserComment) {
+                                            if (error) { res.send(error); } else {
+                                                console.log(newUserComment);
+                                                res.redirect("/");
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
@@ -89,13 +126,23 @@ router.post('/delete/comment/:id', function(req, res) {
     });
 });
 
-router.get("/users", function(req, res) {
+router.get("/comments", function(req, res) {
     Comments.find({}).populate("news").exec(function(error, doc) {
         if (error) {
             res.send(error);
         } else {
             var users = { user: doc };
-            res.render("users", users);
+            res.render("comments", users);
+        }
+    });
+});
+
+router.get("/users", function(req, res) {
+    Users.find({}).populate("comments").exec(function(error, doc) {
+        if (error) {
+            res.send(error);
+        } else {
+            res.json(doc);
         }
     });
 });
