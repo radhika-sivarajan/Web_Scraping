@@ -7,7 +7,7 @@ var Promise = require("bluebird");
 
 var PORT = process.env.PORT || 3000;
 var app = express();
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 
 // Models
 var Comments = require("./models/Comments.js");
