@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 mongoose.Promise = Promise;
 if (process.env.NODE_ENV === 'production') {
     console.log('node env is', process.env.NODE_ENV);
-    mongoose.connect('mongodb://heroku_309mccdx:rf05t6gjulsqo2gq5idmcbc4ng@ds149481.mlab.com:49481/heroku_309mccdx');
+    mongoose.connect('mongodb://radhika:radhika@ds149481.mlab.com:49481/heroku_309mccdx');
 } else {
     console.log('node env is', process.env.NODE_ENV);
     mongoose.connect('mongodb://localhost/web-scraper');
